@@ -14,7 +14,6 @@ public class ActionManager : MonoBehaviour
     void Start()
     {
         ResetAction();
-        ChangeActionRemaigningText();
     }
 
 
