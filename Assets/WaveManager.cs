@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class WaveManager : MonoBehaviour
 {
@@ -18,7 +19,6 @@ public class WaveManager : MonoBehaviour
     private int enemyRemaining = 0;
 
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +28,7 @@ public class WaveManager : MonoBehaviour
             enemyRemaining += _elements[i].NumberOfEnemies;
             for (int j = 0; j < _elements[i].NumberOfEnemies; j++)
             {
-                Instantiate(GetEnemyType(i));
+                RandomizeSpawn(i);
             }
         }
     }
@@ -60,6 +60,39 @@ public class WaveManager : MonoBehaviour
                 return _wizardPrefab;
         }
         return null;
+    }
+
+
+    public void RandomizeSpawn(int index)
+    {
+        int emplacementFullCount = 0;
+        for (int i = 0; i < MainGame.EmplacementsData.Length; i++)
+        {
+            if (MainGame.EmplacementsData[i].GameobjectOnEmplacement != null)
+            {
+                emplacementFullCount++;
+            }
+        }
+        
+        if (emplacementFullCount == MainGame.EmplacementsData.Length)
+        {
+            Debug.Log("End Randomize Spawn for all emplacements full. Number of emplacements full : " + emplacementFullCount);
+            return;
+        }
+
+        int posIndex = UnityEngine.Random.Range(0, MainGame.EmplacementsData.Length);
+        if (MainGame.EmplacementsData[posIndex].GameobjectOnEmplacement != null)
+        {
+            RandomizeSpawn(index);
+            return;
+        }
+
+        Vector3 posToInst = MainGame.EmplacementsData[posIndex].PlatformEmplacement.transform.position;
+        GameObject enemy = Instantiate(GetEnemyType(index), posToInst, Quaternion.identity);
+        SpriteRenderer enemySpriteRenderer = enemy.GetComponent<SpriteRenderer>();
+        enemy.transform.position = new Vector3(posToInst.x, enemySpriteRenderer.bounds.size.y / 2 + MainGame.EmplacementsData[posIndex].PlatformEmplacement.GetComponent<SpriteRenderer>().bounds.size.y / 2, 0);
+
+        MainGame.EmplacementsData[posIndex].GameobjectOnEmplacement = enemy;
     }
 
 }

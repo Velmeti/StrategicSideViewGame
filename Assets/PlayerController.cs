@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        
+        playerPos = MainGame._emplacementPlayerStart;
     }
 
     void Update()
@@ -41,6 +41,10 @@ public class PlayerController : MonoBehaviour
         {
             if (!isValidPos(direction))
                 return;
+
+            TradePosition(direction);
+
+            MainGame.EmplacementsData[playerPos + direction].GameobjectOnEmplacement = this.gameObject;
             playerPos += direction;
 
             transform.position = new Vector2(MainGame.Platforms[playerPos].transform.position.x, transform.position.y);
@@ -57,8 +61,21 @@ public class PlayerController : MonoBehaviour
 
     private bool isValidPos(int direction)
     {
-        if (playerPos + direction < 0 ||playerPos + direction > MainGame.Platforms.Length - 1)
+        if (playerPos + direction < 0 || playerPos + direction > MainGame.Platforms.Length - 1)
             return false;
         return true;
+    }
+
+
+    private void TradePosition(int direction)
+    {
+        if (MainGame.EmplacementsData[playerPos + direction].GameobjectOnEmplacement == null)
+        {
+            MainGame.EmplacementsData[playerPos].GameobjectOnEmplacement = null;
+            return;
+        }
+
+        MainGame.EmplacementsData[playerPos].GameobjectOnEmplacement = MainGame.EmplacementsData[playerPos + direction].GameobjectOnEmplacement;
+        MainGame.EmplacementsData[playerPos].GameobjectOnEmplacement.transform.position = new Vector2(MainGame.EmplacementsData[playerPos].PlatformEmplacement.transform.position.x, transform.position.y);
     }
 }

@@ -1222,7 +1222,10 @@ MonoBehaviour:
   _prefabPlatform: {fileID: 1708685204020911283, guid: 49976a77c0ec54d4194c1967324e7422, type: 3}
   _offset: 1
   Platforms: []
+  EmplacementsData:
+  - {fileID: 0}
   _player: {fileID: 4736900045296862364, guid: 36be3ad9459b4a5439907cd883bbbd77, type: 3}
+  _emplacementPlayerStart: 3
 --- !u!4 &2042990114
 Transform:
   m_ObjectHideFlags: 0
@@ -1285,15 +1288,15 @@ MonoBehaviour:
   _spearmanPrefab: {fileID: 1699202122855885284, guid: 4218aaec49ebbec45b66ca2abb28460d, type: 3}
   _wizardPrefab: {fileID: 1699202122855885284, guid: b69193ac319bea9478ac4fa4811b35b0, type: 3}
   _elements:
-  - NumberOfEnemies: 3
-    SelectedEnemyType: 0
-  - NumberOfEnemies: 2
-    SelectedEnemyType: 1
-  - NumberOfEnemies: 5
-    SelectedEnemyType: 2
   - NumberOfEnemies: 1
+    SelectedEnemyType: 0
+  - NumberOfEnemies: 1
+    SelectedEnemyType: 1
+  - NumberOfEnemies: 0
+    SelectedEnemyType: 2
+  - NumberOfEnemies: 0
     SelectedEnemyType: 3
-  - NumberOfEnemies: 10
+  - NumberOfEnemies: 0
     SelectedEnemyType: 4
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
