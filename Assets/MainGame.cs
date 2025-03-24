@@ -8,6 +8,8 @@ public class MainGame : MonoBehaviour
     public ActionManager ActionManager;
     public TurnManager TurnManager;
 
+    public int WaveNumber = 1;
+
     [SerializeField] private int _nbPlatform;
     [SerializeField] private GameObject _prefabPlatform;
     [SerializeField] private float _offset;
